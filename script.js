@@ -119,32 +119,7 @@ function updateGameBoard() {
     attachCardFlipListeners();  // Attach listeners for flipping cards
 }
 
-// Function to render the discard pile (showing the topmost card)
-function renderDiscardPile() {
-    const discardPileContainer = document.getElementById('discard-pile');
-    discardPileContainer.innerHTML = ""; // Clear existing content
 
-    if (gameState.discardPile.length > 0) {
-        const topCard = gameState.discardPile[gameState.discardPile.length - 1];
-        console.log("top card", topCard);
-
-        // Ensure the card rendered here has the correct data-isDiscardPileCard attribute
-        discardPileContainer.innerHTML = `
-            <div class="card-container">
-                <div class="card flipped" data-id="${topCard.id}" data-isDiscardPileCard="true">
-                    <div class="card-back">
-                        <img src="images/card-back.png" alt="Card Back">
-                    </div>
-                    <div class="card-front">
-                        <img src="images/idols/${topCard.image}" alt="${topCard.name}">
-                    </div>
-                </div>
-            </div>
-        `;
-    } else {
-        discardPileContainer.innerHTML = 'Discard Pile';
-    }
-}
 
 // Function to render a stage card
 function renderStageCard(stageCard) {
@@ -322,10 +297,9 @@ function attachCardFlipListeners() {
     });
 }
 
-
 // Ensure the card is added to the discard pile and re-rendered
 function moveCardToDiscardPile(card) {
-    console.log('moveCardToDiscardPile called for card:', card.dataset.name);
+    console.log('moveCardToDiscardPile called for card 2:', card.dataset.name);
     const discardPile = document.getElementById('discard-pile');
 
     // Move the card container to the discard pile
@@ -347,9 +321,10 @@ function moveCardToDiscardPile(card) {
             if (cardIndex !== -1) {
                 const [removedCard] = player.hand.splice(cardIndex, 1);  // Remove the card from the hand
                 gameState.discardPile.push(removedCard);  // Add the card to the discard pile
-                console.log('Card moved to discard pile in game state:', removedCard.name);
+                console.log('Card moved to discard pile in game state:', removedCard.dataset.name);
             }
         });
+
         // After moving the card, update the game board to re-render the discard pile
         updateGameBoard();
     } else {
